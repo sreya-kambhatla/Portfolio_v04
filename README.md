@@ -12,7 +12,7 @@ A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and Ja
 
 ## 🖼️ Preview
 
-> Visit the [live site](https://sreya-kambhatla.github.io/Portfolio_v04/) to see it in action
+> Visit the [live site](https://sreya-kambhatla.github.io/Portfolio/) to see it in action
 
 [![Portfolio Preview](https://img.shields.io/badge/%E2%96%B6_View_Live-sreya--kambhatla.github.io%2FPortfolio__v04-00d4ff?style=flat-square&labelColor=060b14)](https://sreya-kambhatla.github.io/Portfolio_v04/)
 
