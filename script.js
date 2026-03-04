@@ -38,66 +38,60 @@
   W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;init();requestAnimationFrame(draw);
 })();
 
-/* SCROLL REVEAL
-   Key fixes for GitHub Pages (external CSS):
-   - Wait for window.onload so external styles.css is parsed
-     and getBoundingClientRect() returns correct positions
-   - Unobserve after triggering so each element animates once
-   - scan() as belt-and-suspenders on scroll                  */
+/* SCROLL REVEAL — replays on every scroll up and down */
 (function(){
-  var S='.reveal,.reveal-left,.reveal-right';
+  var S = '.reveal,.reveal-left,.reveal-right';
 
-  function show(el){
-    if(!el.classList.contains('visible')){
-      el.classList.add('visible');
+  function getDelay(el) {
+    var siblings = el.parentElement.querySelectorAll(S);
+    for (var i = 0; i < siblings.length; i++) {
+      if (siblings[i] === el) return i * 200;
     }
+    return 0;
   }
 
-  function scan(){
-    var els=document.querySelectorAll(S);
-    var vh=window.innerHeight||document.documentElement.clientHeight;
-    for(var i=0;i<els.length;i++){
-      if(els[i].classList.contains('visible')) continue;
-      var r=els[i].getBoundingClientRect();
-      if(r.top<vh&&r.bottom>0) show(els[i]);
-    }
-  }
+  window.addEventListener('load', function() {
 
-  /* window.onload waits for styles.css to finish loading —
-     critical for GitHub Pages where CSS is a separate file.
-     DOMContentLoaded fires before external CSS is applied,
-     so element heights/positions aren't correct yet.        */
-  window.addEventListener('load', function(){
-    scan(); // show anything already in viewport on load
-
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(entries){
-        for(var i=0;i<entries.length;i++){
-          if(entries[i].isIntersecting){
-            show(entries[i].target);
-            io.unobserve(entries[i].target); // stop watching once shown
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            // Element entered viewport — stagger delay then animate in
+            entry.target.style.transitionDelay = getDelay(entry.target) + 'ms';
+            entry.target.classList.add('visible');
+          } else {
+            // Element left viewport — reset instantly so it's ready to replay
+            entry.target.style.transitionDelay = '0ms';
+            entry.target.classList.remove('visible');
           }
-        }
-      },{
-        threshold: 0.05,        // trigger when 5% visible
-        rootMargin: '0px 0px -40px 0px' // slight bottom offset
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
       });
-      var els=document.querySelectorAll(S);
-      for(var i=0;i<els.length;i++){
-        if(!els[i].classList.contains('visible')) io.observe(els[i]);
+
+      document.querySelectorAll(S).forEach(function(el) {
+        io.observe(el); // no unobserve — keeps watching forever
+      });
+    }
+
+    // Scroll fallback for older browsers
+    function scan() {
+      var els = document.querySelectorAll(S);
+      var vh  = window.innerHeight;
+      for (var i = 0; i < els.length; i++) {
+        var r = els[i].getBoundingClientRect();
+        if (r.top < vh * 0.9 && r.bottom > 0) {
+          els[i].style.transitionDelay = getDelay(els[i]) + 'ms';
+          els[i].classList.add('visible');
+        } else {
+          els[i].style.transitionDelay = '0ms';
+          els[i].classList.remove('visible');
+        }
       }
     }
-
-    // Scroll fallback for browsers without IntersectionObserver
-    window.addEventListener('scroll',scan,{passive:true});
-
-    // Final fallback: reveal everything after 2s
-    // (catches any edge case where observer doesn't fire)
-    setTimeout(scan, 800);
-    setTimeout(function(){
-      var els=document.querySelectorAll(S);
-      for(var i=0;i<els.length;i++) show(els[i]);
-    }, 2500);
+    window.addEventListener('scroll', scan, {passive: true});
+    scan(); // initial check on load
   });
 })();
 
