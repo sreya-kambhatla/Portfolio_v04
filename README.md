@@ -42,36 +42,12 @@ Portfolio_v04/
 ├── index.html                  # Page structure & content
 ├── styles.css                  # All styling, animations, responsive layout
 ├── script.js                   # Canvas, scroll reveal, quotes, contact form
-├── generate_og_image.py        # Python: generates social preview card (1200x630)
-├── og-image.png                # Generated OG image — committed to repo
 ├── serve.sh                    # Shell: spin up local dev server instantly
 ├── README.md
 └── .github/
     └── workflows/
         └── deploy.yml          # GitHub Actions: validates on every push
 ```
-
----
-
-## 🖼️ Regenerate Social Preview
-
-```bash
-pip install Pillow
-python generate_og_image.py
-# Outputs og-image.png at 1200x630px
-```
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technologies |
-|---|---|
-| **Languages** | HTML5 · CSS3 · JavaScript · Python · Shell |
-| **Data & ML** | Scikit-learn · PyTorch · Pandas · NumPy · SQL |
-| **Visualization** | Power BI · Tableau · Plotly · Matplotlib |
-| **Cloud** | AWS · Azure · Google Cloud · Databricks |
-| **Tools** | Jira · Docker · EmailJS · GitHub Actions |
 
 ---
 
