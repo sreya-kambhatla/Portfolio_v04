@@ -38,44 +38,25 @@
   W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;init();requestAnimationFrame(draw);
 })();
 
-/* SCROLL REVEAL — replays every scroll up and down */
+/* SCROLL REVEAL — replays every scroll */
 (function(){
   var S='.reveal,.reveal-left,.reveal-right';
-  function getDelay(el){
-    var siblings=el.parentElement.querySelectorAll(S);
-    for(var i=0;i<siblings.length;i++) if(siblings[i]===el) return i * 200;
-    return 0;
-  }
+  function getDelay(el){var s=el.parentElement.querySelectorAll(S);for(var i=0;i<s.length;i++)if(s[i]===el)return i*200;return 0;}
   window.addEventListener('load',function(){
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.style.transitionDelay=getDelay(entry.target)+'ms';
-            entry.target.classList.add('visible');
-          } else {
-            entry.target.style.transitionDelay='0ms';
-            entry.target.classList.remove('visible');
-          }
+        entries.forEach(function(e){
+          if(e.isIntersecting){e.target.style.transitionDelay=getDelay(e.target)+'ms';e.target.classList.add('visible');}
+          else{e.target.style.transitionDelay='0ms';e.target.classList.remove('visible');}
         });
       },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
       document.querySelectorAll(S).forEach(function(el){io.observe(el);});
     }
-    function scan(){
-      var els=document.querySelectorAll(S),vh=window.innerHeight;
-      for(var i=0;i<els.length;i++){
-        var r=els[i].getBoundingClientRect();
-        if(r.top<vh*.9&&r.bottom>0){
-          els[i].style.transitionDelay=getDelay(els[i])+'ms';
-          els[i].classList.add('visible');
-        } else {
-          els[i].style.transitionDelay='0ms';
-          els[i].classList.remove('visible');
-        }
-      }
-    }
-    window.addEventListener('scroll',scan,{passive:true});
-    scan();
+    function scan(){var els=document.querySelectorAll(S),vh=window.innerHeight;
+      for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();
+        if(r.top<vh*.9&&r.bottom>0){els[i].style.transitionDelay=getDelay(els[i])+'ms';els[i].classList.add('visible');}
+        else{els[i].style.transitionDelay='0ms';els[i].classList.remove('visible');}}}
+    window.addEventListener('scroll',scan,{passive:true});scan();
   });
 })();
 
@@ -139,58 +120,14 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   });
 });
-/* THEME TOGGLE */
+
+/* THEME TOGGLE — CSS drives visuals via body.light */
 (function(){
-  var btn   = document.getElementById('themeToggle');
-  var moon  = document.getElementById('iconMoon');
-  var sun   = document.getElementById('iconSun');
-  var body  = document.body;
-
-  function setTheme(mode){
-    if(mode === 'light'){
-      body.classList.add('light');
-      moon.style.display = 'none';
-      sun.style.display  = 'block';
-    } else {
-      body.classList.remove('light');
-      moon.style.display = 'block';
-      sun.style.display  = 'none';
-    }
-    // Persist preference so it survives page refresh
-    try { localStorage.setItem('theme', mode); } catch(e){}
-  }
-
-  // Restore saved preference on load
-  var saved = '';
-  try { saved = localStorage.getItem('theme') || ''; } catch(e){}
-  // Also respect OS-level dark/light preference if no saved setting
-  if(!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
-    saved = 'light';
-  }
-  if(saved) setTheme(saved);
-
-  // Toggle on click
-  btn.addEventListener('click', function(){
-    setTheme(body.classList.contains('light') ? 'dark' : 'light');
-  });
-})();
-
-/* THEME TOGGLE */
-(function(){
-  var btn  = document.getElementById('themeToggle');
-  var moon = document.getElementById('iconMoon');
-  var sun  = document.getElementById('iconSun');
-  function setTheme(mode){
-    if(mode==='light'){
-      document.body.classList.add('light');
-      moon.style.display='none';
-      sun.style.display='block';
-    } else {
-      document.body.classList.remove('light');
-      moon.style.display='block';
-      sun.style.display='none';
-    }
-    try{localStorage.setItem('theme',mode);}catch(e){}
+  var btn=document.getElementById('themeToggle');
+  function setTheme(m){
+    if(m==='light') document.body.classList.add('light');
+    else            document.body.classList.remove('light');
+    try{localStorage.setItem('theme',m);}catch(e){}
   }
   var saved='';
   try{saved=localStorage.getItem('theme')||'';}catch(e){}
