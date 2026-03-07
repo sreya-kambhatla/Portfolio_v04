@@ -42,19 +42,6 @@ A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and Ja
 
 ---
 
-## 🆕 Changelog — v03 Toggle Edition
-
-| Change | Details |
-|---|---|
-| ☀️ Light / dark mode | Full warm-greige light theme with `[data-theme="light"]` CSS scoping |
-| 🟠 Toggle orb colors | Cyan orb + moon icon in dark mode → amber orb + sun icon in light mode |
-| 🔆 Sun icon visibility | Darker amber (`#c97d10`) orb with white icon fill for contrast |
-| 📊 Stats color | Light mode stat numbers updated to indigo (`#3d3dc4`) to match palette |
-| 📧 Email chip style | Chip uses cyan (dark) / purple (light) to follow the compose card palette |
-| ✉️ Email display | Compose "To:" chip shows plain-text email, bypassing Cloudflare obfuscation |
-
----
-
 ## 📁 Folder Structure
 
 ```
@@ -69,23 +56,6 @@ Portfolio-Toggle-Mode-v03/
     └── workflows/
         └── deploy.yml          # GitHub Actions: validates on every push
 ```
-
----
-
-## 🚀 Running Locally
-
-```bash
-# Clone the repo
-git clone https://github.com/sreya-kambhatla/Portfolio.git
-cd Portfolio
-
-# Spin up local server (no install needed)
-bash serve.sh
-```
-
-Then open `http://localhost:8000` in your browser.
-
----
 
 ## 📬 Contact
 
