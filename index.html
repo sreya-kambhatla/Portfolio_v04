@@ -32,6 +32,14 @@
     <li><a href="#techstack"  data-section="techstack">Tech Stack</a></li>
     <li><a href="#connect"    data-section="connect">Connect</a></li>
   </ul>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle-orb">
+      <!-- Moon icon (dark mode) -->
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <!-- Sun icon (light mode) -->
+      <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-13a1 1 0 0 0 1-1V2a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm9-7h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2zM4 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm14.95 5.54-1.41-1.41a1 1 0 0 0-1.42 1.42l1.41 1.41a1 1 0 0 0 1.42-1.42zm-12.9-12.9a1 1 0 0 0-1.41 0 1 1 0 0 0 0 1.42l1.41 1.41a1 1 0 0 0 1.42-1.42zm12.9.01a1 1 0 0 0-1.42 0l-1.41 1.41a1 1 0 0 0 1.42 1.42l1.41-1.41a1 1 0 0 0 0-1.42zm-12.9 12.89-1.41 1.41a1 1 0 0 0 1.42 1.42l1.41-1.41a1 1 0 0 0-1.42-1.42z"/></svg>
+    </span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -49,7 +57,7 @@
           <a href="https://www.linkedin.com/in/sreya-kambhatla/" target="_blank" class="social-btn" data-tip="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
           <a href="https://github.com/sreya-kambhatla" target="_blank" class="social-btn" data-tip="GitHub"><svg><use href="#i-github"/></svg></a>
           <a href="https://calendly.com/sreyakambhatla/30min" target="_blank" class="social-btn" data-tip="Book a Call"><svg><use href="#i-calendar"/></svg></a>
-          <a href="mailto:sreyakambhatla@outlook.com" class="social-btn" data-tip="Email"><svg><use href="#i-email"/></svg></a>
+          <a href="/cdn-cgi/l/email-protection#126160776b7379737f707a73667e73527d67667e7d7d793c717d7f" class="social-btn" data-tip="Email"><svg><use href="#i-email"/></svg></a>
           &nbsp;
           <a href="Sreya_Kambhatla_Resume.pdf" download class="dl-btn"><svg><use href="#i-download"/></svg>Resume</a>
         </div>
@@ -255,33 +263,36 @@
     <!-- Manager Quotes -->
     <div class="quotes-section">
       <div class="quotes-label">&#9733; &nbsp; What managers say &nbsp; &#9733;</div>
-      <div class="quotes-stage">
-        <div class="q-slide active">
-          <div class="q-co">Comcast &middot; Cognizant</div>
-          <p class="q-text">&#8220;Sreya hits the ground running on every project. She asks exactly the right questions, understands the business context immediately, and delivers dashboards that stakeholders actually use. A rare combination of technical depth and communication clarity.&#8221;</p>
-          <div class="q-attr">&#8212; Manager, Comcast &middot; Cognizant</div>
+      <div class="quotes-card">
+        <div class="quotes-card-bar"></div>
+        <div class="quotes-stage">
+          <div class="q-slide active">
+            <div class="q-co">Comcast &middot; Cognizant</div>
+            <p class="q-text">&#8220;Sreya hits the ground running on every project. She asks exactly the right questions, understands the business context immediately, and delivers dashboards that stakeholders actually use. A rare combination of technical depth and communication clarity.&#8221;</p>
+            <div class="q-attr">&#8212; Manager, Comcast &middot; Cognizant</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Nike WHQ &middot; Cognizant</div>
+            <p class="q-text">&#8220;Sreya&#8217;s work ethic is truly exceptional. She picked up our entire asset tracking toolset in under a week and immediately started improving it. Her skills and ability to learn new tools on the fly make her a standout on the team.&#8221;</p>
+            <div class="q-attr">&#8212; Manager, Nike WHQ &middot; Cognizant</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Rutgers University</div>
+            <p class="q-text">&#8220;Sreya demonstrated a rare combination of analytical rigor and business intuition. She consistently delivered insights that translated directly into product decisions &mdash; her dashboards became essential tools for our entire team.&#8221;</p>
+            <div class="q-attr">&#8212; Supervisor, Rutgers University</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Tech Mahindra</div>
+            <p class="q-text">&#8220;An incredibly fast learner who needed minimal supervision. Sreya took ownership of complex ETL tasks independently and always delivered clean, well-documented work. A genuine pleasure to have on the team.&#8221;</p>
+            <div class="q-attr">&#8212; Team Lead, Tech Mahindra</div>
+          </div>
         </div>
-        <div class="q-slide">
-          <div class="q-co">Nike WHQ &middot; Cognizant</div>
-          <p class="q-text">&#8220;Sreya&#8217;s work ethic is truly exceptional. She picked up our entire asset tracking toolset in under a week and immediately started improving it. Her skills and ability to learn new tools on the fly make her a standout on the team.&#8221;</p>
-          <div class="q-attr">&#8212; Manager, Nike WHQ &middot; Cognizant</div>
+        <div class="q-dots">
+          <button class="q-dot on" onclick="goQ(0)"></button>
+          <button class="q-dot"    onclick="goQ(1)"></button>
+          <button class="q-dot"    onclick="goQ(2)"></button>
+          <button class="q-dot"    onclick="goQ(3)"></button>
         </div>
-        <div class="q-slide">
-          <div class="q-co">Rutgers University</div>
-          <p class="q-text">&#8220;Sreya demonstrated a rare combination of analytical rigor and business intuition. She consistently delivered insights that translated directly into product decisions &mdash; her dashboards became essential tools for our entire team.&#8221;</p>
-          <div class="q-attr">&#8212; Supervisor, Rutgers University</div>
-        </div>
-        <div class="q-slide">
-          <div class="q-co">Tech Mahindra</div>
-          <p class="q-text">&#8220;An incredibly fast learner who needed minimal supervision. Sreya took ownership of complex ETL tasks independently and always delivered clean, well-documented work. A genuine pleasure to have on the team.&#8221;</p>
-          <div class="q-attr">&#8212; Team Lead, Tech Mahindra</div>
-        </div>
-      </div>
-      <div class="q-dots">
-        <button class="q-dot on" onclick="goQ(0)"></button>
-        <button class="q-dot"    onclick="goQ(1)"></button>
-        <button class="q-dot"    onclick="goQ(2)"></button>
-        <button class="q-dot"    onclick="goQ(3)"></button>
       </div>
     </div>
   </div>
@@ -375,7 +386,7 @@
         <form id="composeForm">
           <div class="compose-row">
             <span class="compose-row-label">To:</span>
-            <span class="compose-to-chip">sreyakambhatla@outlook.com</span>
+            <span class="compose-to-chip"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f7c7d6a766e646e626d676e7b636e4f607a7b63606064216c6062">[email&#160;protected]</a></span>
           </div>
           <div class="compose-row">
             <span class="compose-row-label">Name:</span>
@@ -399,14 +410,3 @@
               <svg><use href="#i-send"/></svg> Send
             </button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>Built by Sreya Kambhatla &nbsp;&middot;&nbsp; 2026</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
