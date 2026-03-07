@@ -6,7 +6,7 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](#)
 
-A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and JavaScript — no frameworks, no build step. Features animated particle backgrounds, scroll-triggered reveals, and a fully responsive layout.
+A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and JavaScript — no frameworks, no build step. Features animated particle backgrounds, scroll-triggered reveals, a warm light mode, and a fully responsive layout.
 
 ---
 
@@ -20,36 +20,37 @@ A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and Ja
 
 ## ✨ Features
 
-- 🎨 **Dark glassmorphism design** — frosted glass tiles on a deep navy canvas
-- 🌌 **Animated particle background** — 70-node network with cyan/purple nebula glow
+### 🎨 Design & Theming
+- 🌙 **Dark glassmorphism design** — frosted glass tiles on a deep navy canvas
+- ☀️ **Light mode toggle** — warm greige palette with indigo accents, switchable via an animated orb button
+- 🌌 **Animated particle background** — 70-node network with cyan/purple nebula glow, visible in both modes
+
+### 🧩 Sections & Components
 - 🎬 **Scroll-triggered reveal animations** — elements slide in as you scroll
-- 📚 **Vertical education timeline** — alternating left/right cards with 4-color spine gradient
 - 💼 **Horizontal experience timeline** — shimmer wave animation, hover-to-expand job details
-- 💬 **Rotating manager quotes** — auto-cycling with per-company color coding
 - 🛠️ **5-panel tech stack grid** — asymmetric layout with subtle category tints
-- 📬 **Outlook-style contact form** — powered by EmailJS, no backend needed
+
+### ⚙️ Technical
 - 🖼️ **OG social preview image** — auto-generated with Python + Pillow for link sharing
 - 🤖 **CI/CD pipeline** — GitHub Actions validates HTML, CSS & JS on every push
 - 📱 **Fully responsive** — mobile, tablet, and desktop
-- 🔖 **Custom SK favicon** — cyan monogram in browser tab
 
 ---
 
 ## 📁 Folder Structure
 
 ```
-Portfolio_v04/
+Portfolio/
 ├── index.html                  # Page structure & content
-├── styles.css                  # All styling, animations, responsive layout
+├── styles.css                  # All styling, animations, light/dark themes, responsive layout
 ├── script.js                   # Canvas, scroll reveal, quotes, contact form
 ├── serve.sh                    # Shell: spin up local dev server instantly
+├── Portfolio Picture.png       # Profile photo
 ├── README.md
 └── .github/
     └── workflows/
         └── deploy.yml          # GitHub Actions: validates on every push
 ```
-
----
 
 ## 📬 Contact
 
