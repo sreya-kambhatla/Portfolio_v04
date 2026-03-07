@@ -300,13 +300,23 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .dl-btn{display:inline-flex;align-items:center;gap:8px;
   background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);
   font-family:"DM Sans",sans-serif;font-weight:700;font-size:.88rem;
-  padding:10px 22px;border-radius:11px;text-decoration:none;transition:all .25s;}
+  padding:10px 22px;border-radius:11px;text-decoration:none;transition:all .25s;overflow:hidden;}
 .dl-btn:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,212,255,.32);}
-.dl-btn svg{width:15px;height:15px;fill:currentColor;}
+.dl-btn svg{width:15px;height:15px;fill:currentColor;transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+/* Arrow bounces down on hover — feels like downloading */
+.dl-btn:hover svg{transform:translateY(3px);}
+@keyframes dl-pulse{0%,100%{transform:translateY(0);}50%{transform:translateY(3px);}}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;}
 .stat-tile{padding:22px;text-align:center;}
 .stat-num{font-family:"Syne",sans-serif;font-size:2rem;font-weight:800;color:var(--cyan);display:block;}
 .stat-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-top:4px;}
+/* Stat tiles — light mode */
+[data-theme="light"] .stat-tile{
+  background:rgba(255,253,248,0.80);
+  border-color:rgba(100,90,70,.14);
+  box-shadow:0 2px 12px rgba(60,50,30,.07);
+}
+[data-theme="light"] .stat-num{color:#007a99;}
 
 /* ══ EDUCATION — vertical center-line timeline ══ */
 .edu-timeline{position:relative;display:flex;flex-direction:column;gap:0;padding:10px 0;}
@@ -334,7 +344,8 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .edu-item.right .edu-field{color:rgba(167,139,250,.8);}
 .edu-meta{display:flex;flex-direction:column;gap:5px;font-size:.82rem;color:var(--muted);margin-bottom:16px;}
 .edu-tags{display:flex;flex-wrap:wrap;gap:6px;}
-.edu-tag{font-size:.71rem;padding:3px 10px;border-radius:20px;font-weight:500;}
+.edu-tag{font-size:.71rem;padding:3px 10px;border-radius:20px;font-weight:500;transition:opacity .2s,transform .2s;cursor:default;}
+.edu-tag:hover{opacity:.82;transform:translateY(-1px);}
 .edu-item.left  .edu-tile .edu-tag{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.25);color:rgba(160,225,245,.9);}
 .edu-item.right .edu-tile .edu-tag{background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.25);color:rgba(210,195,250,.9);}
 
@@ -417,8 +428,8 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 
 /* ══ MANAGER QUOTES — Option B: Editorial card with large decorative quote mark ══ */
 .quotes-section{margin-top:64px;padding-top:48px;border-top:1px solid rgba(255,255,255,.06);}
-.quotes-label{font-family:"Syne",sans-serif;font-size:.68rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:32px;}
+.quotes-label{font-family:"Syne",sans-serif;font-size:.78rem;font-weight:800;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--dim);text-align:center;margin-bottom:32px;}
 
 /* The card that wraps all slides — persistent container */
 .quotes-card{
@@ -565,9 +576,11 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .compose-send{display:flex;align-items:center;gap:7px;
   background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:var(--bg);
   border:none;border-radius:9px;font-family:"Syne",sans-serif;font-weight:700;
-  font-size:.83rem;padding:8px 20px;cursor:pointer;transition:all .25s;letter-spacing:.04em;}
+  font-size:.83rem;padding:8px 20px;cursor:pointer;transition:all .25s;letter-spacing:.04em;overflow:hidden;}
 .compose-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,.35);}
-.compose-send svg{width:13px;height:13px;fill:currentColor;}
+.compose-send svg{width:13px;height:13px;fill:currentColor;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+/* Arrow shoots right on hover — feels like sending */
+.compose-send:hover svg{transform:translateX(4px);}
 .compose-status{font-size:.82rem;text-align:center;padding:8px 20px;display:none;}
 .compose-status.success{color:var(--green);display:block;}
 .compose-status.error{color:var(--rose);display:block;}
