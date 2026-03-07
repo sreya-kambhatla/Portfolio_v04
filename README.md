@@ -1,4 +1,4 @@
-# ✨ Sreya's Portfolio — v03 Toggle Edition
+# ✨ Sreya's Portfolio
 
 [![Live Site](https://img.shields.io/badge/🌐_Live_Site-Visit_Portfolio-00d4ff?style=for-the-badge&labelColor=060b14)](https://sreya-kambhatla.github.io/Portfolio_v04/)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](#)
