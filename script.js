@@ -1,23 +1,67 @@
+/* THEME TOGGLE
+ *
+ * How it works:
+ * 1. On load, check localStorage for saved preference (so it persists across visits)
+ * 2. If nothing saved, check the OS-level preference using prefers-color-scheme
+ * 3. Clicking the button flips a data-theme attribute on <html>
+ *    — CSS variables under [data-theme="light"] take over automatically
+ * 4. The canvas reads window.__lightMode to adjust particle colors
+ */
+(function(){
+  var html = document.documentElement;
+  var btn  = document.getElementById('themeToggle');
+
+  // Determine initial theme: saved pref → OS pref → default dark
+  var saved = localStorage.getItem('sk-theme');
+  var preferLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  var isLight = saved ? saved === 'light' : preferLight;
+
+  function applyTheme(light){
+    isLight = light;
+    html.setAttribute('data-theme', light ? 'light' : 'dark');
+    localStorage.setItem('sk-theme', light ? 'light' : 'dark');
+    // Flag for the canvas animation to read
+    window.__lightMode = light;
+  }
+
+  applyTheme(isLight);
+
+  btn.addEventListener('click', function(){
+    applyTheme(!isLight);
+  });
+})();
+
+
 /* CANVAS */
 (function(){
   var cv=document.getElementById('bgCanvas'),ctx=cv.getContext('2d');
   var N=70,D=150,SP=0.45,MR=1.2,XR=2.8,LW=0.4,CS=0.0004;
   var W,H,nodes=[],paused=false;
   function neb(){
+    var light=window.__lightMode;
     var g=ctx.createRadialGradient(W*.25,H*.3,0,W*.25,H*.3,W*.55);
-    g.addColorStop(0,'rgba(0,180,220,.055)');g.addColorStop(1,'rgba(0,0,0,0)');
+    /* Light: indigo/violet nebula — matches Option A */
+    g.addColorStop(0,light?'rgba(92,90,224,.07)':'rgba(0,180,220,.055)');
+    g.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
     g=ctx.createRadialGradient(W*.78,H*.72,0,W*.78,H*.72,W*.45);
-    g.addColorStop(0,'rgba(120,80,240,.045)');g.addColorStop(1,'rgba(0,0,0,0)');
+    g.addColorStop(0,light?'rgba(130,80,200,.05)':'rgba(120,80,240,.045)');
+    g.addColorStop(1,'rgba(0,0,0,0)');
     ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
   }
   function init(){nodes=[];for(var i=0;i<N;i++){var a=Math.random()*Math.PI*2;
     nodes.push({x:Math.random()*W,y:Math.random()*H,
       vx:Math.cos(a)*SP*(0.4+Math.random()*.6),vy:Math.sin(a)*SP*(0.4+Math.random()*.6),
       r:MR+Math.random()*(XR-MR),ph:Math.random()*Math.PI*2});}}
-  function nc(n,t,a){var h=185+Math.sin(((t+n.ph/(Math.PI*2))%1)*Math.PI*2)*42.5;return'hsla('+h+',100%,70%,'+a+')';}
+  /* nc = node color
+   * Dark: cool cyan/blue (hsl ~185). Light: indigo/violet (hsl ~250) — Option A */
+  function nc(n,t,a){
+    var light=window.__lightMode;
+    var h=light?250+Math.sin(((t+n.ph/(Math.PI*2))%1)*Math.PI*2)*20:185+Math.sin(((t+n.ph/(Math.PI*2))%1)*Math.PI*2)*42.5;
+    return'hsla('+h+','+(light?'75%':'100%')+','+(light?'55%':'70%')+','+a+')';}
   function draw(ts){
     if(paused){requestAnimationFrame(draw);return;}
+    var light=window.__lightMode;
     var t=(ts*CS)%1;ctx.clearRect(0,0,W,H);neb();
     for(var i=0;i<nodes.length;i++){nodes[i].x+=nodes[i].vx;nodes[i].y+=nodes[i].vy;
       if(nodes[i].x<0||nodes[i].x>W){nodes[i].vx*=-1;nodes[i].x=Math.max(0,Math.min(W,nodes[i].x));}
@@ -25,8 +69,10 @@
     ctx.lineWidth=LW;
     for(var i=0;i<nodes.length;i++)for(var j=i+1;j<nodes.length;j++){
       var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<D){var h=185+Math.sin(((t+(nodes[i].ph+nodes[j].ph)/2/(Math.PI*2))%1)*Math.PI*2)*42.5;
-        ctx.strokeStyle='hsla('+h+',90%,65%,'+(1-d/D)*.28+')';
+      if(d<D){
+        var h=light?250+Math.sin(((t+(nodes[i].ph+nodes[j].ph)/2/(Math.PI*2))%1)*Math.PI*2)*20:185+Math.sin(((t+(nodes[i].ph+nodes[j].ph)/2/(Math.PI*2))%1)*Math.PI*2)*42.5;
+        /* Lines: lighter alpha in light mode since canvas opacity handles overall visibility */
+        ctx.strokeStyle='hsla('+h+','+(light?'70%':'90%')+','+(light?'50%':'65%')+','+(1-d/D)*(light?.22:.28)+')';
         ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}
     for(var i=0;i<nodes.length;i++){var n=nodes[i];
       var gw=[[n.r*5,.04],[n.r*3,.09],[n.r*1.8,.18]];
