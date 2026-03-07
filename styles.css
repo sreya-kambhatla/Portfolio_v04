@@ -8,8 +8,8 @@
   --nav-bg:rgba(6,11,20,0.88);
   --canvas-bg:transparent;
   --toggle-track:#1a2e47;
-  --toggle-orb:#f5a623;
-  --toggle-orb-shadow:rgba(245,166,35,0.5);
+  --toggle-orb:#00d4ff;
+  --toggle-orb-shadow:rgba(0,212,255,0.5);
 }
 
 /* ══ LIGHT MODE — Option A: warm grey + indigo nodes ══ */
@@ -23,8 +23,8 @@
   --nav-bg:rgba(212,210,203,0.92);
   --canvas-bg:rgba(212,210,203,0.55);
   --toggle-track:#c0beb6;
-  --toggle-orb:#f5a623;
-  --toggle-orb-shadow:rgba(245,166,35,0.5);
+  --toggle-orb:#c97d10;
+  --toggle-orb-shadow:rgba(201,125,16,0.5);
 }
 
 [data-theme="light"] body::after{
@@ -206,6 +206,9 @@
   fill:var(--bg);
   position:absolute;
   transition:opacity .3s ease, transform .3s ease;
+}
+[data-theme="light"] .theme-toggle-orb svg{
+  fill:#fff;
 }
 .icon-moon{opacity:1;transform:rotate(0deg);}
 .icon-sun{opacity:0;transform:rotate(90deg) scale(0.6);}
