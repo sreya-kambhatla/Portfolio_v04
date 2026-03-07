@@ -38,25 +38,60 @@
   W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;init();requestAnimationFrame(draw);
 })();
 
-/* SCROLL REVEAL — replays every scroll */
+/* SCROLL REVEAL — replays on every scroll up and down */
 (function(){
-  var S='.reveal,.reveal-left,.reveal-right';
-  function getDelay(el){var s=el.parentElement.querySelectorAll(S);for(var i=0;i<s.length;i++)if(s[i]===el)return i*200;return 0;}
-  window.addEventListener('load',function(){
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){e.target.style.transitionDelay=getDelay(e.target)+'ms';e.target.classList.add('visible');}
-          else{e.target.style.transitionDelay='0ms';e.target.classList.remove('visible');}
-        });
-      },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-      document.querySelectorAll(S).forEach(function(el){io.observe(el);});
+  var S = '.reveal,.reveal-left,.reveal-right';
+
+  function getDelay(el) {
+    var siblings = el.parentElement.querySelectorAll(S);
+    for (var i = 0; i < siblings.length; i++) {
+      if (siblings[i] === el) return i * 200;
     }
-    function scan(){var els=document.querySelectorAll(S),vh=window.innerHeight;
-      for(var i=0;i<els.length;i++){var r=els[i].getBoundingClientRect();
-        if(r.top<vh*.9&&r.bottom>0){els[i].style.transitionDelay=getDelay(els[i])+'ms';els[i].classList.add('visible');}
-        else{els[i].style.transitionDelay='0ms';els[i].classList.remove('visible');}}}
-    window.addEventListener('scroll',scan,{passive:true});scan();
+    return 0;
+  }
+
+  window.addEventListener('load', function() {
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            // Element entered viewport — stagger delay then animate in
+            entry.target.style.transitionDelay = getDelay(entry.target) + 'ms';
+            entry.target.classList.add('visible');
+          } else {
+            // Element left viewport — reset instantly so it's ready to replay
+            entry.target.style.transitionDelay = '0ms';
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll(S).forEach(function(el) {
+        io.observe(el); // no unobserve — keeps watching forever
+      });
+    }
+
+    // Scroll fallback for older browsers
+    function scan() {
+      var els = document.querySelectorAll(S);
+      var vh  = window.innerHeight;
+      for (var i = 0; i < els.length; i++) {
+        var r = els[i].getBoundingClientRect();
+        if (r.top < vh * 0.9 && r.bottom > 0) {
+          els[i].style.transitionDelay = getDelay(els[i]) + 'ms';
+          els[i].classList.add('visible');
+        } else {
+          els[i].style.transitionDelay = '0ms';
+          els[i].classList.remove('visible');
+        }
+      }
+    }
+    window.addEventListener('scroll', scan, {passive: true});
+    scan(); // initial check on load
   });
 })();
 
@@ -120,20 +155,3 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   });
 });
-
-/* THEME TOGGLE — CSS drives visuals via body.light */
-(function(){
-  var btn=document.getElementById('themeToggle');
-  function setTheme(m){
-    if(m==='light') document.body.classList.add('light');
-    else            document.body.classList.remove('light');
-    try{localStorage.setItem('theme',m);}catch(e){}
-  }
-  var saved='';
-  try{saved=localStorage.getItem('theme')||'';}catch(e){}
-  if(!saved&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches) saved='light';
-  if(saved) setTheme(saved);
-  btn.addEventListener('click',function(){
-    setTheme(document.body.classList.contains('light')?'dark':'light');
-  });
-})();
