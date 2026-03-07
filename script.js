@@ -131,27 +131,43 @@ function goQ(idx){
 qTimer=setInterval(function(){goQ((curQ+1)%4);},4500);
 
 /* EMAILJS */
-(function(){emailjs.init('YOUR_PUBLIC_KEY');})();
+(function(){emailjs.init('service_qamg8rg');})();
 document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('composeForm').addEventListener('submit',function(e){
     e.preventDefault();
     var btn=this.querySelector('.compose-send');
     var st=document.getElementById('composeStatus');
     btn.disabled=true;btn.textContent='Sending...';st.className='compose-status';
-    emailjs.send('service_qamg8rg','template_77w8o5v',{
+
+    var params={
       from_name:document.getElementById('c_name').value,
       from_email:document.getElementById('c_email').value,
       subject:document.getElementById('c_subject').value,
-      message:document.getElementById('c_message').value,
-      to_email:'sreyakambhatla@outlook.com'
-    }).then(function(){
-      st.className='compose-status success';st.textContent='Message sent!';
-      btn.textContent='Sent!';document.getElementById('composeForm').reset();
-      setTimeout(function(){btn.disabled=false;btn.innerHTML='<svg width="13" height="13" fill="currentColor"><use href="#i-send"/></svg> Send';},3000);
-    }).catch(function(err){
-      console.error(err);st.className='compose-status error';
+      message:document.getElementById('c_message').value
+    };
+
+    // Step 1: Send notification to Sreya
+    emailjs.send('service_qamg8rg','template_fr4kits', params)
+    .then(function(){
+      // Step 2: Send auto-reply to the person who reached out
+      return emailjs.send('service_qamg8rg','template_pvogdlo', params);
+    })
+    .then(function(){
+      st.className='compose-status success';
+      st.textContent='Message sent!';
+      btn.textContent='Sent!';
+      document.getElementById('composeForm').reset();
+      setTimeout(function(){
+        btn.disabled=false;
+        btn.innerHTML='<svg width="13" height="13" fill="currentColor"><use href="#i-send"/></svg> Send';
+      },3000);
+    })
+    .catch(function(err){
+      console.error(err);
+      st.className='compose-status error';
       st.textContent='Could not send. Please email sreyakambhatla@outlook.com directly.';
-      btn.disabled=false;btn.innerHTML='<svg width="13" height="13" fill="currentColor"><use href="#i-send"/></svg> Send';
+      btn.disabled=false;
+      btn.innerHTML='<svg width="13" height="13" fill="currentColor"><use href="#i-send"/></svg> Send';
     });
   });
 });
