@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sreya Kambhatla | Data &amp; Business Analyst</title>
+<link rel="icon" href="favicon.ico" sizes="any"/>
+<link rel="icon" href="favicon.png" type="image/png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5C3.9 3 3 3.9 3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></symbol>
+  <symbol id="i-email" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></symbol>
+  <symbol id="i-compose" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
+</svg>
+
+<nav id="mainNav">
+  <div class="nav-logo">SK<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#hero"       data-section="hero">About</a></li>
+    <li><a href="#education"  data-section="education">Education</a></li>
+    <li><a href="#experience" data-section="experience">Experience</a></li>
+    <li><a href="#techstack"  data-section="techstack">Tech Stack</a></li>
+    <li><a href="#connect"    data-section="connect">Connect</a></li>
+  </ul>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+    <span class="theme-toggle-orb">
+      <!-- Moon icon (dark mode) -->
+      <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <!-- Sun icon (light mode) -->
+      <svg class="icon-sun" viewBox="0 0 24 24"><path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-13a1 1 0 0 0 1-1V2a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1zm0 14a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm9-7h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2zM4 12a1 1 0 0 0-1-1H2a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1zm14.95 5.54-1.41-1.41a1 1 0 0 0-1.42 1.42l1.41 1.41a1 1 0 0 0 1.42-1.42zm-12.9-12.9a1 1 0 0 0-1.41 0 1 1 0 0 0 0 1.42l1.41 1.41a1 1 0 0 0 1.42-1.42zm12.9.01a1 1 0 0 0-1.42 0l-1.41 1.41a1 1 0 0 0 1.42 1.42l1.41-1.41a1 1 0 0 0 0-1.42zm-12.9 12.89-1.41 1.41a1 1 0 0 0 1.42 1.42l1.41-1.41a1 1 0 0 0-1.42-1.42z"/></svg>
+    </span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="profile-ring reveal">
+        <img class="profile-img" src="profile.webp" alt="Sreya Kambhatla"/>
+      </div>
+      <div class="hero-text">
+        <div class="hero-name reveal">Sreya Kambhatla</div>
+        <div class="hero-role reveal">Data &amp; Business Analyst</div>
+        <p class="hero-bio reveal">A <strong>Data &amp; Business Analyst</strong> with 2+ years of experience transforming complex data into strategic decisions. Specializing in <strong>real-time dashboards</strong>, KPI frameworks, and predictive analytics across logistics, media, and operations domains.<br><br>From tracking <strong>500+ daily Nike shipments</strong> to optimizing broadcast media operations at Comcast &mdash; every project turns noise into clarity, and clarity into impact.</p>
+        <div class="social-row reveal">
+          <a href="https://www.linkedin.com/in/sreya-kambhatla/" target="_blank" class="social-btn" data-tip="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+          <a href="https://github.com/sreya-kambhatla" target="_blank" class="social-btn" data-tip="GitHub"><svg><use href="#i-github"/></svg></a>
+          <a href="https://calendly.com/sreyakambhatla/30min" target="_blank" class="social-btn" data-tip="Book a Call"><svg><use href="#i-calendar"/></svg></a>
+          <a href="/cdn-cgi/l/email-protection#b7c4c5d2ced6dcd6dad5dfd6c3dbd6f7d8c2c3dbd8d8dc99d4d8da" class="social-btn" data-tip="Email"><svg><use href="#i-email"/></svg></a>
+          &nbsp;
+          <a href="Sreya_Kambhatla_Resume.pdf" download class="dl-btn"><svg><use href="#i-download"/></svg>Resume</a>
+        </div>
+        <div class="stats-row">
+          <div class="glass-tile stat-tile reveal"><span class="stat-num">2+</span><div class="stat-label">Years Experience</div></div>
+          <div class="glass-tile stat-tile reveal" style="transition-delay:.12s"><span class="stat-num">50%+</span><div class="stat-label">Reporting Time Saved</div></div>
+          <div class="glass-tile stat-tile reveal" style="transition-delay:.24s"><span class="stat-num">96%</span><div class="stat-label">Client Satisfaction</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="sec-label">Academic Background</div>
+    <h2 class="sec-title">Education <span>Timeline</span></h2>
+    <div class="edu-timeline">
+      <div class="edu-item left">
+        <div class="edu-dot"></div>
+        <div class="glass-tile edu-tile reveal-left">
+          <div class="edu-accent"></div>
+          <div class="edu-degree">Bachelor of Technology</div>
+          <div class="edu-field">Computer Science Engineering</div>
+          <div class="edu-meta">
+            <span>&#127979; ICFAI University, Hyderabad</span>
+            <span>&#128197; 2018 &ndash; 2022</span>
+          </div>
+          <div class="edu-tags">
+            <span class="edu-tag">Probability &amp; Statistics</span>
+            <span class="edu-tag">DBMS</span>
+            <span class="edu-tag">Data Visualization</span>
+            <span class="edu-tag">Big Data Systems</span>
+            <span class="edu-tag">Machine Learning</span>
+            <span class="edu-tag">Data Structures &amp; Algorithms</span>
+            <span class="edu-tag">Operating Systems</span>
+            <span class="edu-tag">SQL &amp; Database Design</span>
+            <span class="edu-tag">Linear Algebra</span>
+          </div>
+        </div>
+      </div>
+      <div class="edu-item right">
+        <div class="edu-dot"></div>
+        <div class="glass-tile edu-tile reveal-right">
+          <div class="edu-accent"></div>
+          <div class="edu-degree">Master of Science</div>
+          <div class="edu-field">Computational Science</div>
+          <div class="edu-meta">
+            <span>&#127979; Rutgers University, NJ</span>
+            <span>&#128197; 2022 &ndash; 2024</span>
+          </div>
+          <div class="edu-tags">
+            <span class="edu-tag">Business Analytics</span>
+            <span class="edu-tag">Machine Learning</span>
+            <span class="edu-tag">Big Data Analytics</span>
+            <span class="edu-tag">Artificial Intelligence</span>
+            <span class="edu-tag">Optimization Methods</span>
+            <span class="edu-tag">Data Mining &amp; Visualization</span>
+            <span class="edu-tag">Statistical Modeling</span>
+            <span class="edu-tag">Cloud Computing</span>
+            <span class="edu-tag">Deep Learning</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="sec-label">Career Path</div>
+    <h2 class="sec-title">Work <span>Experience</span></h2>
+    <div class="timeline-track">
+      <div class="jobs-row">
+
+        <!-- Comcast — cyan -->
+        <div class="job-wrap reveal">
+          <div class="job-dot"></div>
+          <div class="job-card">
+            <div class="job-accent-bar"></div>
+            <div class="job-summary-body">
+              <div class="job-year">Feb 2026 &ndash; Present</div>
+              <div class="job-co">Comcast</div>
+              <div class="job-title">Business Analyst</div>
+              <div class="job-via">via Cognizant</div>
+            </div>
+            <div class="job-detail">
+              <div class="job-detail-inner">
+                <ul class="detail-list">
+                  <li>Translated stakeholder needs into <strong>data-driven solutions</strong> for media operations</li>
+                  <li>Built <strong>Excel reports</strong> &amp; analyses to support strategic planning</li>
+                  <li>Drove <strong>process improvements</strong> via root cause analysis &amp; cross-team work</li>
+                  <li>Monitored <strong>compliance</strong> standards to align ops with business goals</li>
+                </ul>
+                <div class="detail-tags">
+                  <span class="dtag">Business Analysis</span>
+                  <span class="dtag">Excel</span>
+                  <span class="dtag">Process Optimization</span>
+                  <span class="dtag">Jira</span>
+                  <span class="dtag">Elastic</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nike — purple -->
+        <div class="job-wrap reveal" style="transition-delay:.1s">
+          <div class="job-dot"></div>
+          <div class="job-card">
+            <div class="job-accent-bar"></div>
+            <div class="job-summary-body">
+              <div class="job-year">Oct 2024 &ndash; Jan 2026</div>
+              <div class="job-co">Nike WHQ</div>
+              <div class="job-title">Asset Management Analyst</div>
+              <div class="job-via">via Cognizant</div>
+            </div>
+            <div class="job-detail">
+              <div class="job-detail-inner">
+                <ul class="detail-list">
+                  <li>Built real-time dashboard tracking <strong>500+</strong> daily shipments via Python, SQL &amp; Streamlit</li>
+                  <li>Led inventory audits across <strong>2,000+</strong> assets with <strong>95%</strong> reconciliation accuracy</li>
+                  <li>Validated <strong>10,000+</strong> records ensuring perpetual inventory accuracy</li>
+                  <li>Defined &amp; monitored inventory KPIs in Power BI for stakeholders</li>
+                </ul>
+                <div class="detail-tags">
+                  <span class="dtag">Python</span>
+                  <span class="dtag">SQL</span>
+                  <span class="dtag">Power BI</span>
+                  <span class="dtag">Streamlit</span>
+                  <span class="dtag">Excel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rutgers — amber -->
+        <div class="job-wrap reveal" style="transition-delay:.2s">
+          <div class="job-dot"></div>
+          <div class="job-card">
+            <div class="job-accent-bar"></div>
+            <div class="job-summary-body">
+              <div class="job-year">Sept 2022 &ndash; Sept 2023</div>
+              <div class="job-co">Rutgers</div>
+              <div class="job-title">Data Analyst</div>
+              <div class="job-via">University</div>
+            </div>
+            <div class="job-detail">
+              <div class="job-detail-inner">
+                <ul class="detail-list">
+                  <li>Built Power BI dashboards for real-time performance &amp; user behavior</li>
+                  <li>Churn prediction models improved retention targeting by <strong>15%</strong></li>
+                  <li>A/B test analysis drove <strong>96%</strong> client satisfaction rating</li>
+                  <li>Integrated Power BI with relational DBs for self-service analytics</li>
+                </ul>
+                <div class="detail-tags">
+                  <span class="dtag">Power BI</span>
+                  <span class="dtag">Python</span>
+                  <span class="dtag">A/B Testing</span>
+                  <span class="dtag">ML</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Mahindra — green -->
+        <div class="job-wrap reveal" style="transition-delay:.3s">
+          <div class="job-dot"></div>
+          <div class="job-card">
+            <div class="job-accent-bar"></div>
+            <div class="job-summary-body">
+              <div class="job-year">Jan 2022 &ndash; Jul 2022</div>
+              <div class="job-co">Tech Mahindra</div>
+              <div class="job-title">Jr. Data Analyst</div>
+              <div class="job-via">Internship</div>
+            </div>
+            <div class="job-detail">
+              <div class="job-detail-inner">
+                <ul class="detail-list">
+                  <li>Developed Tableau dashboards &amp; SQL reports for operational analytics</li>
+                  <li>Built ETL pipelines integrating multi-source enterprise data</li>
+                  <li>Reduced data quality issues by <strong>30%</strong> through validation frameworks</li>
+                  <li>Delivered <strong>3</strong> concurrent BI projects on time in Agile sprints</li>
+                </ul>
+                <div class="detail-tags">
+                  <span class="dtag">Tableau</span>
+                  <span class="dtag">SQL</span>
+                  <span class="dtag">ETL</span>
+                  <span class="dtag">Agile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Manager Quotes -->
+    <div class="quotes-section">
+      <div class="quotes-label">&#9733; &nbsp; What managers say &nbsp; &#9733;</div>
+      <div class="quotes-card">
+        <div class="quotes-card-bar"></div>
+        <div class="quotes-stage">
+          <div class="q-slide active">
+            <div class="q-co">Comcast &middot; Cognizant</div>
+            <p class="q-text">&#8220;Sreya hits the ground running on every project. She asks exactly the right questions, understands the business context immediately, and delivers dashboards that stakeholders actually use. A rare combination of technical depth and communication clarity.&#8221;</p>
+            <div class="q-attr">&#8212; Manager, Comcast &middot; Cognizant</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Nike WHQ &middot; Cognizant</div>
+            <p class="q-text">&#8220;Sreya&#8217;s work ethic is truly exceptional. She picked up our entire asset tracking toolset in under a week and immediately started improving it. Her skills and ability to learn new tools on the fly make her a standout on the team.&#8221;</p>
+            <div class="q-attr">&#8212; Manager, Nike WHQ &middot; Cognizant</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Rutgers University</div>
+            <p class="q-text">&#8220;Sreya demonstrated a rare combination of analytical rigor and business intuition. She consistently delivered insights that translated directly into product decisions &mdash; her dashboards became essential tools for our entire team.&#8221;</p>
+            <div class="q-attr">&#8212; Supervisor, Rutgers University</div>
+          </div>
+          <div class="q-slide">
+            <div class="q-co">Tech Mahindra</div>
+            <p class="q-text">&#8220;An incredibly fast learner who needed minimal supervision. Sreya took ownership of complex ETL tasks independently and always delivered clean, well-documented work. A genuine pleasure to have on the team.&#8221;</p>
+            <div class="q-attr">&#8212; Team Lead, Tech Mahindra</div>
+          </div>
+        </div>
+        <div class="q-dots">
+          <button class="q-dot on" onclick="goQ(0)"></button>
+          <button class="q-dot"    onclick="goQ(1)"></button>
+          <button class="q-dot"    onclick="goQ(2)"></button>
+          <button class="q-dot"    onclick="goQ(3)"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="techstack">
+  <div class="container">
+    <div class="sec-label">Technical Arsenal</div>
+    <h2 class="sec-title">Tech <span>Stack</span></h2>
+    <div class="stack-outer">
+      <div class="glass-tile stack-panel sp-lang reveal">
+        <div class="stack-panel-title">&#128013; Programming Languages</div>
+        <div class="stack-chips">
+          <span class="chip">Python</span><span class="chip">SQL</span>
+          <span class="chip">R</span><span class="chip">MATLAB</span><span class="chip">JavaScript</span>
+        </div>
+      </div>
+      <div class="glass-tile stack-panel sp-dsml reveal" style="transition-delay:.1s">
+        <div class="stack-panel-title">&#129302; Data Science &amp; Machine Learning</div>
+        <div class="stack-chips">
+          <span class="chip">Scikit-learn</span><span class="chip">PyTorch</span>
+          <span class="chip">PySpark</span><span class="chip">TensorFlow</span>
+          <span class="chip">Hugging Face</span><span class="chip">NLP</span>
+          <span class="chip">NumPy</span><span class="chip">Pandas</span>
+          <span class="chip">Statistical Modeling</span><span class="chip">SpaCy</span>
+          <span class="chip">Feature Engineering</span><span class="chip">Time Series</span>
+          <span class="chip">LightGBM</span><span class="chip">XGBoost</span>
+          <span class="chip">Generative AI</span><span class="chip">LLMs</span>
+          <span class="chip">RAG</span><span class="chip">Web Scraping</span>
+        </div>
+      </div>
+      <div class="glass-tile stack-panel sp-tools reveal" style="transition-delay:.2s">
+        <div class="stack-panel-title">&#128295; Frameworks &amp; Tools</div>
+        <div class="stack-chips">
+          <span class="chip">FastAPI</span><span class="chip">Streamlit</span>
+          <span class="chip">Docker</span><span class="chip">GitHub</span>
+          <span class="chip">Jupyter</span><span class="chip">Selenium</span>
+          <span class="chip">BeautifulSoup</span><span class="chip">ServiceNow</span>
+          <span class="chip">Jira</span><span class="chip">Visio</span>
+          <span class="chip">Elastic</span><span class="chip">Flow Engine</span>
+        </div>
+      </div>
+      <div class="glass-tile stack-panel sp-cloud reveal" style="transition-delay:.15s">
+        <div class="stack-panel-title">&#9925; Cloud &amp; Databases</div>
+        <div class="stack-chips">
+          <span class="chip">AWS Lambda</span><span class="chip">AWS S3</span>
+          <span class="chip">Google Cloud</span><span class="chip">Azure</span>
+          <span class="chip">DynamoDB</span><span class="chip">MongoDB</span>
+          <span class="chip">Databricks</span><span class="chip">SQLite</span>
+        </div>
+      </div>
+      <div class="glass-tile stack-panel sp-viz reveal" style="transition-delay:.25s">
+        <div class="stack-panel-title">&#128202; Visualization &amp; BI</div>
+        <div class="stack-chips">
+          <span class="chip">Power BI</span><span class="chip">Tableau</span>
+          <span class="chip">Matplotlib</span><span class="chip">Seaborn</span>
+          <span class="chip">Plotly</span><span class="chip">Folium</span><span class="chip">Excel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="container">
+    <div class="sec-label">Get In Touch</div>
+    <h2 class="sec-title">Let's <span>Connect</span></h2>
+    <div class="connect-wrapper">
+      <div class="connect-info reveal">
+        <div class="connect-headline">Open to <span>opportunities</span> &amp; collaborations</div>
+        <p class="connect-sub">Whether you have a role in mind, a project to collaborate on, or just want to chat about data &mdash; I'd love to hear from you.</p>
+        <div class="connect-links">
+          <a href="https://www.linkedin.com/in/sreya-kambhatla/" target="_blank" class="connect-link">
+            <svg><use href="#i-linkedin"/></svg> LinkedIn &mdash; /in/sreya-kambhatla
+          </a>
+          <a href="https://github.com/sreya-kambhatla" target="_blank" class="connect-link">
+            <svg><use href="#i-github"/></svg> GitHub &mdash; sreya-kambhatla
+          </a>
+          <a href="https://calendly.com/sreyakambhatla/30min" target="_blank" class="connect-link">
+            <svg><use href="#i-calendar"/></svg> Book a 30-min call on Calendly
+          </a>
+        </div>
+      </div>
+      <div class="compose-card reveal" style="transition-delay:.15s">
+        <div class="compose-header">
+          <svg><use href="#i-compose"/></svg>
+          <span class="compose-header-title">Compose</span>
+        </div>
+        <form id="composeForm">
+          <div class="compose-row">
+            <span class="compose-row-label">To:</span>
+            <span class="compose-to-chip"><a href="/cdn-cgi/l/email-protection#86f5f4e3ffe7ede7ebe4eee7f2eae7c6e9f3f2eae9e9eda8e5e9eb"><span class="__cf_email__" data-cfemail="e99a9b8c90888288848b81889d8588a9869c9d85868682c78a8684">[email&#160;protected]</span></a></span>
+          </div>
+          <div class="compose-row">
+            <span class="compose-row-label">Name:</span>
+            <input class="compose-input" id="c_name" type="text" placeholder="Your name" required/>
+          </div>
+          <div class="compose-row">
+            <span class="compose-row-label">From:</span>
+            <input class="compose-input" id="c_email" type="email" placeholder="your.email@example.com" required/>
+          </div>
+          <div class="compose-row">
+            <span class="compose-row-label">Subject:</span>
+            <input class="compose-input" id="c_subject" type="text" placeholder="Let's collaborate!"/>
+          </div>
+          <div class="compose-body">
+            <textarea class="compose-textarea" id="c_message" placeholder="Write your message here..." required></textarea>
+          </div>
+          <div class="compose-status" id="composeStatus"></div>
+          <div class="compose-footer">
+            <span class="compose-powered">Powered by EmailJS</span>
+            <button type="submit" class="compose-send">
+              <svg><use href="#i-send"/></svg> Send
+            </button>
