@@ -385,7 +385,7 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .job-wrap{position:relative;padding-top:36px;}
 
 /* Simple dot — consistent style, per-child hover color */
-.job-dot{position:absolute;top:8px;left:50%;transform:translate(-50%,-50%);
+.job-dot{position:absolute;top:-5px;left:50%;transform:translate(-50%,-50%);
   width:12px;height:12px;border-radius:50%;
   background:var(--bg);border:2px solid var(--dim);z-index:3;
   transition:border-color .25s,box-shadow .25s;}
@@ -769,9 +769,40 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
   /* Experience: 2-column grid instead of 4 */
   .jobs-row{ grid-template-columns:repeat(2,1fr); }
 
-  /* Hide horizontal timeline line — doesn't make sense in 2-col grid */
-  .timeline-track::before{ display:none; }
-  .timeline-track::after { display:none; }
+  /* Vertical timeline line replacing the horizontal one.
+   * ::before = the solid coloured line running top to bottom.
+   * ::after  = the shimmer highlight sliding downward.
+   * Both are pinned to left:28px so dot and line share the same axis. */
+  .timeline-track::before{
+    top:0; bottom:0; left:28px; right:auto;
+    width:2px; height:auto;
+    background:linear-gradient(to bottom,var(--cyan),var(--purple),var(--amber),var(--green));
+  }
+  .timeline-track::after{
+    top:0; bottom:0; left:25px; right:auto;
+    width:8px; height:auto;
+    background:linear-gradient(to bottom,
+      transparent 0%, transparent 25%,
+      rgba(255,255,255,0) 35%, rgba(255,255,255,.6) 50%,
+      rgba(255,255,255,0) 65%, transparent 75%, transparent 100%);
+    background-size:100% 250%;
+    background-position:0 -250%;
+    animation:shimmerLineV 2.8s ease-in-out infinite;
+  }
+
+  /* Cards shift right to clear the line */
+  .job-wrap{ padding-left:56px; }
+
+  /* Dot sits on the vertical line at the top of each card.
+   * left:28px matches the line axis.
+   * top:28px centres it vertically in the card header area.
+   * transform centres the 12px dot on that point. */
+  .job-dot{ left:28px; top:28px; }
+}
+
+@keyframes shimmerLineV{
+  0%  { background-position:0 -250%; }
+  100%{ background-position:0  250%; }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -796,9 +827,10 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
   /* Jobs: single column on small phones */
   .jobs-row{ grid-template-columns:1fr; }
 
-  /* Reduce dot-to-card gap: padding-top:36px is too spacious in single column.
-   * 18px keeps the dot visually above the card without a large empty zone. */
-  .job-wrap{ padding-top:18px; }
+  /* Vertical line stays — inherited from 900px block.
+   * Remove top padding that was for the old dot-above-card layout.
+   * padding-left:56px (from 900px block) keeps cards clear of the line. */
+  .job-wrap{ padding-top:8px; }
 
   /* Tech stack: all panels stacked */
   .stack-outer{ grid-template-columns:1fr; }
