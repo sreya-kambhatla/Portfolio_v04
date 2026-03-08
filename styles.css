@@ -593,28 +593,193 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
   border-top:1px solid rgba(255,255,255,.05);position:relative;z-index:2;}
 
+/* ══════════════════════════════════════════════════════════
+   HAMBURGER NAV
+   The button is hidden on desktop and shown on mobile.
+   Three <span> children form the three bars.
+   When .open is on the button, CSS rotates bar 1 + 3 into
+   an X and fades bar 2 out — a pure-CSS animated icon.
+══════════════════════════════════════════════════════════ */
+.nav-hamburger{
+  display:none;          /* Hidden on desktop — shown below 768px */
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:6px;
+  z-index:1001;          /* Above the nav-links drawer */
+}
+.nav-hamburger span{
+  display:block;
+  width:24px;height:2px;
+  background:var(--text);
+  border-radius:2px;
+  transition:transform .3s ease, opacity .3s ease;
+  transform-origin:center;
+}
+/* When the hamburger has class .open, animate bars into X */
+.nav-hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2){ opacity:0; }
+.nav-hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* ══════════════════════════════════════════════════════════
+   TABLET — 960px and below
+   Collapse connect and tech stack to a single column.
+══════════════════════════════════════════════════════════ */
 @media(max-width:960px){
   .connect-wrapper{grid-template-columns:1fr;}
   .stack-outer{grid-template-columns:1fr 1fr;}
+  /* Data Science panel spans full width since it has the most chips */
   .sp-dsml{grid-column:1/3;grid-row:auto;}
   .sp-lang,.sp-tools,.sp-cloud,.sp-viz{grid-column:auto;grid-row:auto;}
 }
-@media(max-width:900px){
-  nav{padding:0 20px;}
-  section{padding:90px 20px 60px;}
-  .hero-inner{flex-direction:column;text-align:center;}
-  .social-row{justify-content:center;}
-  .edu-timeline::before{left:20px;transform:none;}
-  .edu-item.left,.edu-item.right{justify-content:flex-start;padding-left:44px;}
-  .edu-dot{left:20px;transform:none;}
-  .edu-tile{width:100%;}
-  .jobs-row{grid-template-columns:repeat(2,1fr);}
-  .timeline-track::before{display:none;}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE NAV — 768px and below
+   Show hamburger, slide nav-links down as a drawer.
+══════════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  /* Show the hamburger, hide theme toggle from nav row so it
+     doesn't crowd — it will stay visible inside the nav */
+  nav{ padding:0 20px; }
+  .nav-hamburger{ display:flex; }
+
+  /* The links list becomes a full-width dropdown drawer.
+     max-height:0 hides it; JS adds .open to animate it open.
+     This technique (animating max-height) avoids display:none
+     which can't be transitioned. */
+  .nav-links{
+    position:absolute;
+    top:64px; left:0; right:0;   /* Sit right below the nav bar */
+    background:var(--nav-bg);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+    flex-direction:column;
+    gap:0;
+    max-height:0;                /* Collapsed by default */
+    overflow:hidden;
+    transition:max-height .35s cubic-bezier(.16,1,.3,1);
+    padding:0;
+  }
+  .nav-links.open{
+    max-height:320px;            /* Large enough to fit all links */
+  }
+  .nav-links li{ width:100%; }
+  .nav-links a{
+    display:block;
+    padding:14px 24px;
+    border-radius:0;
+    border:none;
+    border-bottom:1px solid var(--border);
+    font-size:1rem;
+  }
 }
+
+/* ══════════════════════════════════════════════════════════
+   TABLET/LARGE MOBILE — 900px and below
+   Hero stacks vertically; education collapses to single column.
+══════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  section{ padding:90px 20px 60px; }
+
+  /* Hero: stack photo above text, center everything */
+  .hero-inner{ flex-direction:column; text-align:center; }
+  .social-row{ justify-content:center; }
+  .hero-bio{ max-width:100%; }
+
+  /* Education: move the vertical timeline line to the left
+     so both cards can stack left-aligned */
+  .edu-timeline::before{ left:20px; transform:none; }
+  .edu-item.left,.edu-item.right{
+    justify-content:flex-start;
+    padding-left:44px;    /* Space for the dot on the left */
+  }
+  .edu-dot{ left:20px; transform:none; }
+  .edu-tile{ width:100%; }
+
+  /* Experience: 2-column grid instead of 4 */
+  .jobs-row{ grid-template-columns:repeat(2,1fr); }
+
+  /* Hide horizontal timeline line — doesn't make sense in 2-col grid */
+  .timeline-track::before{ display:none; }
+  .timeline-track::after { display:none; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SMALL MOBILE — 560px and below
+   Single-column everything, shrink big text.
+══════════════════════════════════════════════════════════ */
 @media(max-width:560px){
-  .jobs-row{grid-template-columns:1fr;}
-  .hero-name{font-size:2.2rem;}
-  .sec-title{font-size:1.9rem;}
-  .stack-outer{grid-template-columns:1fr;}
-  .sp-dsml{grid-column:auto;}
+  /* Scale down large headings so they don't overflow */
+  .hero-name{ font-size:2.2rem; }
+  .sec-title{ font-size:1.9rem; }
+
+  /* Profile ring: shrink from 240px to fit on a 375px screen */
+  .profile-ring{ width:180px; height:180px; }
+
+  /* Stats row: 3 tiles side-by-side is too cramped — stack them */
+  .stats-row{ grid-template-columns:1fr 1fr; gap:10px; }
+
+  /* Jobs: single column on small phones */
+  .jobs-row{ grid-template-columns:1fr; }
+
+  /* Tech stack: all panels stacked */
+  .stack-outer{ grid-template-columns:1fr; }
+  .sp-dsml{ grid-column:auto; }
+
+  /* Quotes card: reduce side padding so long quotes don't overflow */
+  .quotes-card{ padding:28px 20px 22px; }
+
+  /* Connect section: reduce headline font */
+  .connect-headline{ font-size:1.35rem; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOUCH DEVICE — TAP-TO-EXPAND JOB CARDS
+   On desktop, job details expand on :hover.
+   On touch, we add class .tapped to the job-wrap via JS.
+   This rule mirrors the hover effect using that class instead.
+══════════════════════════════════════════════════════════ */
+.job-wrap.tapped .job-detail{ max-height:600px; opacity:1; }
+.job-wrap:nth-child(1).tapped .job-card{ border-color:rgba(0,212,255,.38); box-shadow:0 0 22px rgba(0,212,255,.12); }
+.job-wrap:nth-child(2).tapped .job-card{ border-color:rgba(167,139,250,.38); box-shadow:0 0 22px rgba(167,139,250,.12); }
+.job-wrap:nth-child(3).tapped .job-card{ border-color:rgba(245,166,35,.38);  box-shadow:0 0 22px rgba(245,166,35,.12); }
+.job-wrap:nth-child(4).tapped .job-card{ border-color:rgba(38,217,138,.38);  box-shadow:0 0 22px rgba(38,217,138,.12); }
+
+/* Visual hint on mobile: show a small "tap to expand" label */
+@media(max-width:900px){
+  .job-summary-body::after{
+    content:"Tap to expand";
+    display:block;
+    font-size:.65rem;
+    color:var(--dim);
+    margin-top:8px;
+    letter-spacing:.06em;
+  }
+  /* Hide hint once the card is open */
+  .job-wrap.tapped .job-summary-body::after{ content:"Tap to collapse"; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   QUOTE DOTS — bigger tap target on mobile
+   The original dots are 6×6px — impossible to tap accurately.
+   On mobile we enlarge them without changing the visual size,
+   using padding to expand the clickable area (hit slop trick).
+══════════════════════════════════════════════════════════ */
+@media(max-width:768px){
+  .q-dot{
+    width:10px; height:10px;   /* Slightly bigger visual */
+    padding:8px;               /* Expands tap target to ~26×26px */
+    margin:-8px;               /* Compensate so layout stays the same */
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   Respects the OS-level "reduce motion" accessibility setting.
+   Turns off all transitions and animations for users who need it.
+══════════════════════════════════════════════════════════ */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
 }
