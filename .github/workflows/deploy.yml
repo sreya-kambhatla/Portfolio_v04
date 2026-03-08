@@ -1,2 +1,31 @@
-branches:
-  - main
+name: Validate Portfolio
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate HTML
+        run: |
+          curl -s --data-binary @index.html \
+            -H "Content-Type: text/html; charset=utf-8" \
+            "https://validator.w3.org/nu/?out=text" | \
+            grep -v "^$" | grep -v "Info:" || true
+
+      - name: Check JS syntax
+        run: node --check script.js && echo "JS valid"
+
+      - name: Check CSS brace balance
+        run: |
+          OPENS=$(grep -o '{' styles.css | wc -l)
+          CLOSES=$(grep -o '}' styles.css | wc -l)
+          echo "Opens: $OPENS  Closes: $CLOSES"
+          [ "$OPENS" -eq "$CLOSES" ] && echo "CSS valid" || (echo "CSS brace mismatch" && exit 1)
