@@ -40,40 +40,40 @@ document.documentElement.classList.add('js-loaded');
   });
 })();
 
-/* == TAP-TO-EXPAND JOB CARDS ===========================
- * On desktop job details open on :hover (pure CSS).
- * On touch devices hover does not fire, so we listen for
- * touchstart and toggle class "tapped" on the card instead.
+/* == SCROLL-TO-EXPAND JOB CARDS (mobile) ===============
+ * On desktop, cards expand on :hover — no JS needed.
+ * On mobile, hover doesn't exist. Instead of fighting
+ * touch event quirks for tap-to-toggle, we use
+ * IntersectionObserver: a card auto-expands when 60%
+ * of it scrolls into view, and collapses when it leaves.
+ *
+ * threshold:0.6 means the card must be 60% visible before
+ * expanding — prevents half-visible edge cards from opening.
+ *
+ * This only runs on touch devices. Desktop hover is untouched.
  */
 (function(){
   if(!('ontouchstart' in window)) return;
+  if(!('IntersectionObserver' in window)) return;
 
   var cards = document.querySelectorAll('.job-wrap');
 
-  // ONE shared scroll flag for the whole document.
-  // Listening on document (not each card) means we catch every scroll
-  // gesture reliably on iOS and Android — even when the browser
-  // intercepts the touch before it reaches the card element.
-  var didScroll = false;
-
-  document.addEventListener('touchstart', function(){
-    didScroll = false;
-  }, {passive:true});
-
-  document.addEventListener('touchmove', function(){
-    didScroll = true;
-  }, {passive:true});
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        // Card scrolled into view — expand it
+        entry.target.classList.add('tapped');
+      } else {
+        // Card scrolled out of view — collapse it
+        entry.target.classList.remove('tapped');
+      }
+    });
+  }, {
+    threshold: 0.6  // 60% visible before expanding
+  });
 
   cards.forEach(function(card){
-    card.addEventListener('touchend', function(e){
-      if(didScroll) return;                     // finger scrolled — ignore
-      if(e.target.closest('a,button')) return; // tapped a link/button — ignore
-
-      // True tap: toggle this card
-      var isOpen = card.classList.contains('tapped');
-      cards.forEach(function(c){ c.classList.remove('tapped'); });
-      if(!isOpen) card.classList.add('tapped');
-    }, {passive:true});
+    observer.observe(card);
   });
 })();
 
