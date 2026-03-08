@@ -40,42 +40,7 @@ document.documentElement.classList.add('js-loaded');
   });
 })();
 
-/* == SCROLL-TO-EXPAND JOB CARDS (mobile) ===============
- * On desktop, cards expand on :hover — no JS needed.
- * On mobile, hover doesn't exist. Instead of fighting
- * touch event quirks for tap-to-toggle, we use
- * IntersectionObserver: a card auto-expands when 60%
- * of it scrolls into view, and collapses when it leaves.
- *
- * threshold:0.6 means the card must be 60% visible before
- * expanding — prevents half-visible edge cards from opening.
- *
- * This only runs on touch devices. Desktop hover is untouched.
- */
-(function(){
-  if(!('ontouchstart' in window)) return;
-  if(!('IntersectionObserver' in window)) return;
-
-  var cards = document.querySelectorAll('.job-wrap');
-
-  var observer = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        // Card scrolled into view — expand it
-        entry.target.classList.add('tapped');
-      } else {
-        // Card scrolled out of view — collapse it
-        entry.target.classList.remove('tapped');
-      }
-    });
-  }, {
-    threshold: 0.6  // 60% visible before expanding
-  });
-
-  cards.forEach(function(card){
-    observer.observe(card);
-  });
-})();
+/* == MOBILE JOB CARDS: always expanded — no expand/collapse logic needed */
 
 /* == THEME TOGGLE ======================================
  * 1. On load check localStorage for saved preference.
