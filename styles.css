@@ -385,7 +385,7 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .job-wrap{position:relative;padding-top:36px;}
 
 /* Simple dot — consistent style, per-child hover color */
-.job-dot{position:absolute;top:-5px;left:50%;transform:translate(-50%,-50%);
+.job-dot{position:absolute;top:25px;left:50%;transform:translate(-50%,-50%);
   width:12px;height:12px;border-radius:50%;
   background:var(--bg);border:2px solid var(--dim);z-index:3;
   transition:border-color .25s,box-shadow .25s;}
