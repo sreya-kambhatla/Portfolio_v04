@@ -384,9 +384,9 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 
 /* ══ EXPERIENCE — horizontal timeline ══ */
 .timeline-track{position:relative;padding-top:20px;}
-.timeline-track::before{content:"";position:absolute;top:44px;left:0;right:0;height:2px;
+.timeline-track::before{content:"";position:absolute;top:50px;left:0;right:0;height:2px;
   background:linear-gradient(to right,var(--cyan),var(--purple),var(--amber),var(--green));z-index:0;}
-.timeline-track::after{content:"";position:absolute;top:41px;left:0;right:0;height:8px;
+.timeline-track::after{content:"";position:absolute;top:47px;left:0;right:0;height:8px;
   background:linear-gradient(90deg,transparent 0%,transparent 25%,rgba(255,255,255,0) 35%,rgba(255,255,255,.6) 50%,rgba(255,255,255,0) 65%,transparent 75%,transparent 100%);
   background-size:250% 100%;background-position:250% 0;
   animation:shimmerLine 2.8s ease-in-out infinite;
