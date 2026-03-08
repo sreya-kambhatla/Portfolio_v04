@@ -3,7 +3,7 @@ name: Validate Portfolio
 on:
   push:
     branches:
-      - Base-Code
+      - main
 
 jobs:
   validate:
