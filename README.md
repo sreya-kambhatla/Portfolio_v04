@@ -6,16 +6,9 @@
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)](#)
 
-A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and JavaScript — no frameworks, no build step.
+A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and JavaScript.
 
 ---
-
-## 🖼️ Preview
-
-> Visit the [live site](https://sreya-kambhatla.github.io/Portfolio/) to see it in action
-
----
-
 
 ## ✨ Features
 
@@ -25,21 +18,22 @@ A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and Ja
 - 🌌 **Animated particle background** — 70-node network with cyan/purple nebula glow, visible in both modes
 
 ### 🧩 Sections & Components
-- 🎬 **Scroll-triggered reveal animations** — elements slide in as you scroll
-- 💼 **Horizontal experience timeline** — shimmer wave animation, hover-to-expand job details on desktop
+- 🎬 **Scroll-triggered reveal animations** — every section heading, label, tile, quotes card, and connect links animate in on scroll
+- 💼 **Experience timeline** — horizontal shimmer wave on desktop, vertical animated line on mobile, with aligned dots per card
 - 🛠️ **5-panel tech stack grid** — asymmetric layout with subtle category tints
 - 💬 **Manager quotes carousel** — auto-rotating slideshow with smooth transitions
 - 📬 **Email compose panel** — inline contact form powered by EmailJS with auto-reply
 
 ### 📱 Mobile & Responsive
 - **Hamburger nav** — animated slide-down drawer with X close button
-- **Scroll reveal on all sections** — education timeline, tech stack, stats, and connect all animate in
+- **Scroll reveal on all sections** — every heading, label, quote, and tile animates in
 - **Optimised canvas** — particle count halved on mobile to preserve battery and keep scrolling smooth
-- **Touch-safe** — no hover dependencies, backdrop-filter removed on mobile for 60fps scrolling
+- **Horizontal scroll locked** — `overscroll-behavior-x:none` on both `html` and `body` prevents sideways drift on iOS
 
 ### ⚙️ Technical
-- 🖼️ **OG social preview image** — auto-generated with Python + Pillow for link sharing
-- 🤖 **CI/CD pipeline** — GitHub Actions validates HTML, CSS & JS on every push
+- 🤖 **CI/CD pipeline** — GitHub Actions validates HTML, JS syntax, and CSS brace balance on every push
+- 🚫 **Jekyll bypassed** — `.nojekyll` file ensures GitHub Pages serves plain HTML directly, no build step
+- 🔒 **Email obfuscation bypass** — email address assembled at runtime in JS to prevent Cloudflare from encoding it
 - ⚡ **Zero dependencies** — vanilla JS only, no frameworks, no build step
 
 ---
@@ -50,13 +44,15 @@ A dark glassmorphism portfolio built from scratch with vanilla HTML, CSS, and Ja
 Portfolio/
 ├── index.html                  # Page structure & content
 ├── styles.css                  # All styling, animations, light/dark themes, responsive layout
-├── script.js                   # Canvas, scroll reveal, quotes, contact form
+├── script.js                   # Canvas, scroll reveal, quotes, contact form, email injection
 ├── serve.sh                    # Shell: spin up local dev server instantly
+├── .nojekyll                   # Tells GitHub Pages to skip Jekyll and serve HTML directly
 ├── Portfolio Picture.png       # Profile photo
+├── Sreya_Kambhatla_Resume.pdf  # Downloadable resume
 ├── README.md
 └── .github/
     └── workflows/
-        └── deploy.yml          # GitHub Actions: validates on every push
+        └── deploy.yml          # GitHub Actions: validates HTML, JS, and CSS on every push
 ```
 
 ## 📬 Contact
