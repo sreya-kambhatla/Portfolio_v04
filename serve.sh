@@ -1,21 +1,4 @@
 #!/bin/bash
-# serve.sh
-# --------
-# Starts a local development server so you can preview the portfolio
-# in your browser without needing VS Code or any other tools.
-#
-# Usage:
-#   chmod +x serve.sh   (first time only — makes it executable)
-#   ./serve.sh
-#
-# Then open: http://localhost:8000
-#
-# How it works:
-#   Python's built-in http.server module serves files from the current
-#   directory. It handles CSS, JS, and image files correctly, unlike
-#   opening index.html directly (which blocks external file references).
-#
-# Press Ctrl+C to stop the server.
 
 PORT=8000
 echo ""
