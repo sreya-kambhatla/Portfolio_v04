@@ -858,19 +858,7 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
 .job-wrap:nth-child(3).tapped .job-card{ border-color:rgba(245,166,35,.38);  box-shadow:0 0 22px rgba(245,166,35,.12); }
 .job-wrap:nth-child(4).tapped .job-card{ border-color:rgba(38,217,138,.38);  box-shadow:0 0 22px rgba(38,217,138,.12); }
 
-/* Visual hint on mobile: show a small "tap to expand" label */
-@media(max-width:900px){
-  .job-summary-body::after{
-    content:"Tap to expand";
-    display:block;
-    font-size:.65rem;
-    color:var(--dim);
-    margin-top:8px;
-    letter-spacing:.06em;
-  }
-  /* Hide hint once the card is open */
-  .job-wrap.tapped .job-summary-body::after{ content:"Tap to collapse"; }
-}
+/* Tap hint removed — cards now auto-expand on scroll via IntersectionObserver */
 
 /* ══════════════════════════════════════════════════════════
    QUOTE DOTS — bigger tap target on mobile
