@@ -385,7 +385,7 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .job-wrap{position:relative;padding-top:36px;}
 
 /* Simple dot — consistent style, per-child hover color */
-.job-dot{position:absolute;top:34px;left:50%;transform:translate(-50%,-50%);
+.job-dot{position:absolute;top:44px;left:50%;transform:translate(-50%,-50%);
   width:12px;height:12px;border-radius:50%;
   background:var(--bg);border:2px solid var(--dim);z-index:3;
   transition:border-color .25s,box-shadow .25s;}
@@ -845,9 +845,12 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
 ══════════════════════════════════════════════════════════ */
 @media(max-width:768px){
   .q-dot{
-    width:10px; height:10px;   /* Slightly bigger visual */
-    padding:8px;               /* Expands tap target to ~26×26px */
-    margin:-8px;               /* Compensate so layout stays the same */
+    /* Keep visual small (4px) but pad generously for tap target.
+     * padding:10px makes the tappable area ~24px without changing appearance.
+     * negative margin compensates so surrounding layout is unaffected. */
+    width:4px; height:4px;
+    padding:10px;
+    margin:-10px;
   }
 }
 
