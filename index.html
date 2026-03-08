@@ -25,7 +25,17 @@
 
 <nav id="mainNav">
   <div class="nav-logo">SK<span>.</span></div>
-  <ul class="nav-links">
+
+  <!-- Hamburger button: only visible on mobile via CSS.
+       aria-expanded tells screen readers whether the menu is open. -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false">
+    <!-- Three spans = three lines of the hamburger icon.
+         CSS animates them into an X when the menu is open. -->
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- nav-links gets class "open" toggled by JS on mobile -->
+  <ul class="nav-links" id="navLinks">
     <li><a href="#hero"       data-section="hero">About</a></li>
     <li><a href="#education"  data-section="education">Education</a></li>
     <li><a href="#experience" data-section="experience">Experience</a></li>
@@ -136,7 +146,8 @@
       <div class="jobs-row">
 
         <!-- Comcast — cyan -->
-        <div class="job-wrap reveal">
+        <!-- data-index lets JS identify which card to toggle open on tap -->
+        <div class="job-wrap reveal" data-index="0">
           <div class="job-dot"></div>
           <div class="job-card">
             <div class="job-accent-bar"></div>
@@ -167,7 +178,7 @@
         </div>
 
         <!-- Nike — purple -->
-        <div class="job-wrap reveal" style="transition-delay:.1s">
+        <div class="job-wrap reveal" style="transition-delay:.1s" data-index="1">
           <div class="job-dot"></div>
           <div class="job-card">
             <div class="job-accent-bar"></div>
@@ -198,7 +209,7 @@
         </div>
 
         <!-- Rutgers — amber -->
-        <div class="job-wrap reveal" style="transition-delay:.2s">
+        <div class="job-wrap reveal" style="transition-delay:.2s" data-index="2">
           <div class="job-dot"></div>
           <div class="job-card">
             <div class="job-accent-bar"></div>
@@ -228,7 +239,7 @@
         </div>
 
         <!-- Tech Mahindra — green -->
-        <div class="job-wrap reveal" style="transition-delay:.3s">
+        <div class="job-wrap reveal" style="transition-delay:.3s" data-index="3">
           <div class="job-dot"></div>
           <div class="job-card">
             <div class="job-accent-bar"></div>
