@@ -50,24 +50,26 @@ document.documentElement.classList.add('js-loaded');
 
   var cards = document.querySelectorAll('.job-wrap');
 
+  // ONE shared scroll flag for the whole document.
+  // Listening on document (not each card) means we catch every scroll
+  // gesture reliably on iOS and Android — even when the browser
+  // intercepts the touch before it reaches the card element.
+  var didScroll = false;
+
+  document.addEventListener('touchstart', function(){
+    didScroll = false;
+  }, {passive:true});
+
+  document.addEventListener('touchmove', function(){
+    didScroll = true;
+  }, {passive:true});
+
   cards.forEach(function(card){
-    var didScroll = false;
-
-    // touchstart: reset the scroll flag each new gesture
-    card.addEventListener('touchstart', function(e){
-      didScroll = false;
-    }, {passive:true});
-
-    // touchmove: fires during any scroll — mark this gesture as a scroll
-    card.addEventListener('touchmove', function(e){
-      didScroll = true;
-    }, {passive:true});
-
-    // touchend: finger lifted — only toggle if no scroll happened
     card.addEventListener('touchend', function(e){
-      if(didScroll) return;                      // was a scroll, ignore
-      if(e.target.closest('a,button')) return;  // tapped a link/button, ignore
+      if(didScroll) return;                     // finger scrolled — ignore
+      if(e.target.closest('a,button')) return; // tapped a link/button — ignore
 
+      // True tap: toggle this card
       var isOpen = card.classList.contains('tapped');
       cards.forEach(function(c){ c.classList.remove('tapped'); });
       if(!isOpen) card.classList.add('tapped');
