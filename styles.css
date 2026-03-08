@@ -385,7 +385,7 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .job-wrap{position:relative;padding-top:36px;}
 
 /* Simple dot — consistent style, per-child hover color */
-.job-dot{position:absolute;top:44px;left:50%;transform:translate(-50%,-50%);
+.job-dot{position:absolute;top:8px;left:50%;transform:translate(-50%,-50%);
   width:12px;height:12px;border-radius:50%;
   background:var(--bg);border:2px solid var(--dim);z-index:3;
   transition:border-color .25s,box-shadow .25s;}
@@ -524,9 +524,23 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .q-slide:nth-child(4) .q-attr{color:var(--green);}
 
 .q-dots{display:flex;gap:8px;justify-content:center;margin-top:22px;position:relative;z-index:1;}
-.q-dot{width:4px;height:4px;border-radius:50%;background:var(--border);
-  border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s;}
+.q-dot{
+  position:relative;
+  width:4px;height:4px;border-radius:50%;background:var(--border);
+  border:none;cursor:pointer;padding:0;
+  transition:background .3s,transform .3s;
+  flex-shrink:0;
+}
 .q-dot.on{background:var(--cyan);transform:scale(1.5);}
+/* Invisible tap-target ring around each dot — doesn't affect visual size */
+.q-dot::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:24px;height:24px;
+  border-radius:50%;
+}
 
 /* Light mode quotes overrides consolidated above */
 
@@ -843,16 +857,7 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
    On mobile we enlarge them without changing the visual size,
    using padding to expand the clickable area (hit slop trick).
 ══════════════════════════════════════════════════════════ */
-@media(max-width:768px){
-  .q-dot{
-    /* Keep visual small (4px) but pad generously for tap target.
-     * padding:10px makes the tappable area ~24px without changing appearance.
-     * negative margin compensates so surrounding layout is unaffected. */
-    width:4px; height:4px;
-    padding:10px;
-    margin:-10px;
-  }
-}
+/* Mobile tap target is handled by .q-dot::after pseudo-element above */
 
 /* ══════════════════════════════════════════════════════════
    REDUCED MOTION
