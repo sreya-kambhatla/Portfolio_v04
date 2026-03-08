@@ -78,7 +78,7 @@ document.documentElement.classList.add('js-loaded');
 })();
 
 
- *
+/* THEME TOGGLE
  * How it works:
  * 1. On load, check localStorage for saved preference (so it persists across visits)
  * 2. If nothing saved, check the OS-level preference using prefers-color-scheme
