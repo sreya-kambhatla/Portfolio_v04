@@ -524,15 +524,31 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
 .q-slide:nth-child(4) .q-attr{color:var(--green);}
 
 .q-dots{display:flex;gap:8px;justify-content:center;margin-top:22px;position:relative;z-index:1;}
+/* q-dot: the <button> itself has no visual — it's just a tap zone.
+ * ::before = visible dot (4px). Only this gets scaled on .on state.
+ * ::after  = invisible 24px tap target. Never scaled, never shown.
+ * Keeping these on separate layers means scale() never bleeds into
+ * the tap area and iOS never renders a system highlight on the dot. */
 .q-dot{
   position:relative;
-  width:4px;height:4px;border-radius:50%;background:var(--border);
+  width:4px;height:4px;
+  background:transparent;
   border:none;cursor:pointer;padding:0;
-  transition:background .3s,transform .3s;
   flex-shrink:0;
 }
-.q-dot.on{background:var(--cyan);transform:scale(1.5);}
-/* Invisible tap-target ring around each dot — doesn't affect visual size */
+.q-dot::before{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(1);
+  width:4px;height:4px;border-radius:50%;
+  background:var(--border);
+  transition:background .3s, transform .3s;
+}
+.q-dot.on::before{
+  background:var(--cyan);
+  transform:translate(-50%,-50%) scale(1.5);
+}
 .q-dot::after{
   content:'';
   position:absolute;
@@ -540,6 +556,7 @@ section{position:relative;z-index:2;padding:110px 48px 80px;}
   transform:translate(-50%,-50%);
   width:24px;height:24px;
   border-radius:50%;
+  background:transparent;
 }
 
 /* Light mode quotes overrides consolidated above */
@@ -778,6 +795,10 @@ footer{text-align:center;padding:24px;font-size:.78rem;color:var(--dim);
 
   /* Jobs: single column on small phones */
   .jobs-row{ grid-template-columns:1fr; }
+
+  /* Reduce dot-to-card gap: padding-top:36px is too spacious in single column.
+   * 18px keeps the dot visually above the card without a large empty zone. */
+  .job-wrap{ padding-top:18px; }
 
   /* Tech stack: all panels stacked */
   .stack-outer{ grid-template-columns:1fr; }
